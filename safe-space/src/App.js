@@ -1,7 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import LoginForm from './components/Login'
-import './App.css';
+import React from "react";
+import { Route } from "react-router-dom";
+import logo from "./logo.svg";
+import LoginForm from "./components/Login";
+import "./App.css";
 
 class App extends React.Component {
   render() {
@@ -12,5 +13,7 @@ class App extends React.Component {
     );
   }
 }
+
+
 
 export default App;
