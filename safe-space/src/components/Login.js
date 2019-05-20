@@ -5,6 +5,7 @@ import styled from "styled-components";
 const StyledLogin = styled(Form)`
   max-width: 600px;
   margin: 0 auto;
+  background-color: grey;
 `;
 
 export default class LoginForm extends React.Component {
