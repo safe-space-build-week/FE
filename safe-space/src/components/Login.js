@@ -7,7 +7,7 @@ const StyledLogin = styled(Form)`
   margin: 0 auto;
 `;
 
-export default class loginForm extends React.Component {
+export default class LoginForm extends React.Component {
   render() {
     return (
       <StyledLogin>
