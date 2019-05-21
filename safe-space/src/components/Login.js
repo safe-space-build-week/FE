@@ -1,16 +1,19 @@
 import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import Loader from "react-loader-spinner";
+import Loader from 'react-loader-spinner';
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { login } from '../actions';
+import { Route, Link } from 'react-router-dom';
+import SignUpForm from "./SignUpForm";
 
 const StyledLogin = styled(Form)`
   max-width: 600px;
   margin: 0 auto;
-  background-color: grey;
+  
 `;
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   state = {
     credentials: {
       username: "",
@@ -31,14 +34,14 @@ export default class LoginForm extends React.Component {
         e.preventDefault();
         this.props
           .login(this.state.credentials)
-          .then(() => this.props.history.push('/protected'));
+          .then(() => this.props.history.push('/dashboard'));
       };
 
   render() {
     return (
-      <StyledLogin>
+      <StyledLogin onSubmit={this.login}>
         <FormGroup>
-          <Label for="User">Username:</Label>
+          <Label for="user">Username:</Label>
                 <Input
                     type="text"
                     name="username"
@@ -53,12 +56,28 @@ export default class LoginForm extends React.Component {
                     name="password"
                     value={this.state.credentials.password}
                     onChange={this.handleChange}
+
                 />
             </FormGroup>
-            {this.props.error && <p className="error">{this.props.error}</p>}
+           
 
-        <Button color="primary">Submit</Button>
+        <Button color="primary"> {this.props.loggingIn ? (
+              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+            ) : (
+              'Login'
+                )}</Button>
+            <p>Don't have an account? </p><Route render={() => <Link to="/signup">Sign Up!</Link>} component={SignUpForm} />
       </StyledLogin>
     );
   }
 }
+
+const mapStateToProps = ({ error, loggingIn }) => ({
+    error,
+    loggingIn
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { login }
+  )(LoginForm);

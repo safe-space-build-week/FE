@@ -1,12 +1,12 @@
 import React from 'react';
 import { Router, Link } from 'react-router-dom';
-import LoginForm from "./components/Login";
 
 
-class SafeSpace extends React.Component {
+
+class Dashboard extends React.Component {
     render() {
         return (
-            <div className="SafeSpace-Dashboard">
+            <div className="Dashboard">
                 <header>
                     <nav>
                         <Link to="/">Log Out</Link>
@@ -17,5 +17,5 @@ class SafeSpace extends React.Component {
     }
 }
 
-export default SafeSpace;
+export default Dashboard;
 
