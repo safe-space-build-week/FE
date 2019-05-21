@@ -1,15 +1,19 @@
 import React from "react";
 import { Route, Link } from "react-router-dom";
-import logo from "./logo.svg";
 import LoginForm from "./components/Login";
 import "./App.css";
+import Dashboard from "./components/Dashboard";
+import PrivateRoute from './components/PrivateRoute';
+import SignUpForm from './components/SignUpForm';
 
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">        
-        <LoginForm />
+        <Route path="/" component={LoginForm} />
+        <Route path="/signup" component={SignUpForm} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
        
       </div>
     );
