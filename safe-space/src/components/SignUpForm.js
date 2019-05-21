@@ -82,7 +82,11 @@ class SignUpForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isRegistering: state.rootReducer.isRegistering
+      isRegistering: state.isRegistering,
+      name: state.name,
+      username: state.username,
+      email: state.email,
+      password: state.password
   };
 };
 
