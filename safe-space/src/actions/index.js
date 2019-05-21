@@ -65,7 +65,7 @@ export const deleteMessage = id => dispatch => {
     });
 };
 
-export const registerUser = (creds) => dispatch => {
+export const registerUser = creds => dispatch => {
     dispatch({ type: REGISTER_USER })
     return axios.post('https://safespaceapp.herokuapp.com/user/register', creds)
       .then(res => {

@@ -1,17 +1,20 @@
 import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { Route, Link } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
-import { connect } from 'react-redux';
-import {registerUser} from '../actions'
+import { Route, Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import { connect } from "react-redux";
+import { registerUser } from "../actions";
 
 class SignUpForm extends React.Component {
   state = {
-    name: "",
-    username: "",
-    email: "",
-    password: "",
-    isRegistering: false
+    
+      name: "",
+      username: "",
+      email: "",
+      password: ""
+      
+
+      
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -37,7 +40,7 @@ class SignUpForm extends React.Component {
             <Input type="name" value={name} onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
-            <Label for="username">Username</Label>
+            <Label>Username</Label>
             <Input
               type="username"
               value={username}
@@ -45,15 +48,11 @@ class SignUpForm extends React.Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="email">Email</Label>
-            <Input
-              type="email"
-              value={email}
-              onChange={this.handleChange}
-            />
+            <Label>Email</Label>
+            <Input type="email" value={email} onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
-            <Label for="password">Password</Label>
+            <Label>Password</Label>
             <Input
               value={password}
               onChange={this.handleChange}
@@ -82,11 +81,11 @@ class SignUpForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-      isRegistering: state.isRegistering,
-      name: state.name,
-      username: state.username,
-      email: state.email,
-      password: state.password
+    isRegistering: state.isRegistering,
+    name: state.name,
+    username: state.username,
+    email: state.email,
+    password: state.password
   };
 };
 

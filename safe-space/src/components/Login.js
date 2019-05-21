@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { login } from '../actions';
 import { Route, Link } from 'react-router-dom';
-import SignUpForm from "./SignUpForm";
+import SignUpForm from './SignUpForm'
+
 
 const StyledLogin = styled(Form)`
   max-width: 600px;
@@ -66,7 +67,11 @@ class LoginForm extends React.Component {
             ) : (
               'Login'
                 )}</Button>
-            <p>Don't have an account? </p><Route render={() => <Link to="/signup">Sign Up!</Link>} component={SignUpForm} />
+            <p>Don't have an account? </p> <Link to="/signup" >Sign up!</Link>
+            
+
+            
+            
       </StyledLogin>
     );
   }
