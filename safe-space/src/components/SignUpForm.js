@@ -7,14 +7,10 @@ import { registerUser } from "../actions";
 
 class SignUpForm extends React.Component {
   state = {
-    
-      name: "",
-      username: "",
-      email: "",
-      password: ""
-      
-
-      
+    name: "",
+    username: "",
+    email: "",
+    password: ""
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -23,7 +19,7 @@ class SignUpForm extends React.Component {
       .then(() => this.props.history.push("/"));
   };
   handleChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   };
   validateForm = () => {
     const { password, email } = this.state;
@@ -37,19 +33,19 @@ class SignUpForm extends React.Component {
         <Form onSubmit={this.handleSubmit} className="sign-up-form">
           <FormGroup>
             <Label for="name">Name</Label>
-            <Input type="name" value={name} onChange={this.handleChange} />
+            <Input name="name" value={name} onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
             <Label>Username</Label>
             <Input
-              type="username"
+              name="username"
               value={username}
               onChange={this.handleChange}
             />
           </FormGroup>
           <FormGroup>
             <Label>Email</Label>
-            <Input type="email" value={email} onChange={this.handleChange} />
+            <Input name="email" value={email} onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
             <Label>Password</Label>
@@ -57,6 +53,7 @@ class SignUpForm extends React.Component {
               value={password}
               onChange={this.handleChange}
               type="password"
+              name="password"
             />
           </FormGroup>
           <Button color="primary">
