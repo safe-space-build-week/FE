@@ -12,16 +12,16 @@ import {
 } from "../actions";
 
 const initialState = {
-  messages: [],
+  notes: [],
   user_id: null,
   loggingIn: false,
-  deletingMessage: false,
+  deletingNote: false,
   error: "",
   errorStatusCode: null,
-  fetchingMessages: false,
+  fetchingNotes: false,
   isRegistering: false,
-  addingMessage: false,
-  deletingMessage: false,
+  addingNote: false,
+  deletingNote: false,
   token: localStorage.getItem("token")
 };
 
@@ -41,28 +41,28 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_DATA_START:
       return {
         ...state,
-        fetchingMessages: true
+        fetchingNotes: true
       };
     case FETCH_DATA_SUCCESS:
       return {
         ...state,
         error: "",
         errorStatusCode: null,
-        fetchingMessages: false,
-        messages: action.payload
+        fetchingNotes: false,
+        notes: action.payload
       };
     case DELETE_START:
       return {
         ...state,
-        deletingFriend: true
+        deletingNote: true
       };
     case DELETE_SUCCESS:
       return {
         ...state,
-        deletingFriend: false,
+        deletingNote: false,
         error: "",
         errorStatusCode: null,
-        messages: action.payload
+        notes: action.payload
       };
     case USER_UNAUTHORIZED:
       console.log(action);
@@ -70,7 +70,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         error: action.payload.data.error,
         errorStatusCode: action.payload.status,
-        fetchingMessages: false
+        fetchingNotes: false
       };
     case REGISTER_USER_SUCCESS:
       return {

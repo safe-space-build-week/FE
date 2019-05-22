@@ -3,11 +3,23 @@ import axiosAuth from "../axiosAuth";
 
 import { history } from "../helpers/history";
 
+
+
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const USER_UNAUTHORIZED = " USER_UNAUTHORIZED";
+
 export const REGISTER_USER = "REGISTER_USER";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
 export const REGISTER_USER_FAILURE = "REGISTER_USER_FAILURE";
+
+export const FETCH_DATA_START = "FETCH_DATA_START";
+export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
+export const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
+
+export const ADD_START = "ADD_START";
+export const ADD_SUCCESS = "ADD_SUCCESS";
+export const ADD_FAILURE = "ADD_FAILURE";
 
 export const login = creds => dispatch => {
     dispatch({ type: LOGIN_START });
@@ -28,10 +40,28 @@ export const login = creds => dispatch => {
     });
 };
 
-export const FETCH_DATA_START = "FETCH_DATA_START";
-export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
-export const FETCH_DATA_FAILURE = "FETCH_DATA_FAILURE";
-export const USER_UNAUTHORIZED = "FETCH_DATA_FAILURE";
+export const DELETE_START = "DELETE_START";
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
+export const DELETE_FAILURE = "DELETE_FAILURE";
+
+
+export const deleteMessage = id => dispatch => {
+  dispatch({ type: DELETE_START });
+  axiosAuth()
+    .delete(`https://safespaceapp.herokuapp.com/notes/mynotes/${id}`)
+    .then(res => {
+      dispatch({ type: DELETE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log("call failed: ", err.response);
+      if (err.response.status === 403) {
+        dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
+      } else {
+        dispatch({ type: DELETE_FAILURE, payload: err.response });
+      }
+    });
+};
+
 
 export const getData = () => dispatch => {
   dispatch({ type: FETCH_DATA_START });
@@ -50,26 +80,18 @@ export const getData = () => dispatch => {
     });
 };
 
-export const DELETE_START = "DELETE_START";
-export const DELETE_SUCCESS = "DELETE_SUCCESS";
-export const DELETE_FAILURE = "DELETE_FAILURE";
-
-export const deleteMessage = id => dispatch => {
-  dispatch({ type: DELETE_START });
+export const handleAddNote = (token, note) => dispatch => {
+  dispatch({ type: ADD_START });
+  console.log(token);
   axiosAuth()
-    .delete(`https://safespaceapp.herokuapp.com/notes/mynotes/${id}`)
-    .then(res => {
-      dispatch({ type: DELETE_SUCCESS, payload: res.data });
-    })
-    .catch(err => {
-      console.log("call failed: ", err.response);
-      if (err.response.status === 403) {
-        dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
-      } else {
-        dispatch({ type: DELETE_FAILURE, payload: err.response });
-      }
-    });
+    .post("https://safespaceapp.herokuapp.com/notes/newnote", note)
+    .then(res => dispatch({ type: ADD_SUCCESS, payload: res.data }))
+    .catch(err => dispatch({ type: ADD_FAILURE, payload: err }));
 };
+
+
+
+
 
 export const registerUser = creds => dispatch => {
   dispatch({ type: REGISTER_USER });

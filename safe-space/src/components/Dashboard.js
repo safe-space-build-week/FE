@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Link } from 'react-router-dom';
+import NotesList from './NotesList';
 
 
 
@@ -12,6 +13,7 @@ class Dashboard extends React.Component {
                         <Link to="/" onClick={localStorage.clear()}>Log Out</Link>
                     </nav>
                 </header>
+                <NotesList />
             </div>
         )
     }
