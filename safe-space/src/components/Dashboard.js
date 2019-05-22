@@ -9,7 +9,7 @@ class Dashboard extends React.Component {
             <div className="Dashboard">
                 <header>
                     <nav>
-                        <Link to="/">Log Out</Link>
+                        <Link to="/" onClick={localStorage.clear()}>Log Out</Link>
                     </nav>
                 </header>
             </div>
