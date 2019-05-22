@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { handleGetNotes } from '../actions/index';
+import { getData } from '../actions/index';
 import Note from '../components/Note';
 
 class NotesList extends React.Component {
     componentDidMount = () => {
-        this.props.handleGetNotes(this.props.token);
+        this.props.getData(this.props.token);
     };
 
     render() {
@@ -24,4 +24,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {handleGetNotes})
+export default connect(mapStateToProps, { getData })(NotesList);
