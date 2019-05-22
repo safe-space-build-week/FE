@@ -19,7 +19,7 @@ class NotesList extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        notes: state.noteReducer.notes,
+        notes: state.rootReducer.notes,
         token: state.rootReducer.token
     }
 }

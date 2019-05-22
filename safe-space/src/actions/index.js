@@ -3,9 +3,7 @@ import axiosAuth from "../axiosAuth";
 
 import { history } from "../helpers/history";
 
-export const DELETE_START = "DELETE_START";
-export const DELETE_SUCCESS = "DELETE_SUCCESS";
-export const DELETE_FAILURE = "DELETE_FAILURE";
+
 
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -42,6 +40,27 @@ export const login = creds => dispatch => {
     });
 };
 
+export const DELETE_START = "DELETE_START";
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
+export const DELETE_FAILURE = "DELETE_FAILURE";
+
+
+export const deleteMessage = id => dispatch => {
+  dispatch({ type: DELETE_START });
+  axiosAuth()
+    .delete(`https://safespaceapp.herokuapp.com/notes/mynotes/${id}`)
+    .then(res => {
+      dispatch({ type: DELETE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log("call failed: ", err.response);
+      if (err.response.status === 403) {
+        dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
+      } else {
+        dispatch({ type: DELETE_FAILURE, payload: err.response });
+      }
+    });
+};
 
 
 export const getData = () => dispatch => {
@@ -72,22 +91,7 @@ export const handleAddNote = (token, note) => dispatch => {
 
 
 
-export const deleteMessage = id => dispatch => {
-  dispatch({ type: DELETE_START });
-  axiosAuth()
-    .delete(`https://safespaceapp.herokuapp.com/notes/mynotes/${id}`)
-    .then(res => {
-      dispatch({ type: DELETE_SUCCESS, payload: res.data });
-    })
-    .catch(err => {
-      console.log("call failed: ", err.response);
-      if (err.response.status === 403) {
-        dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
-      } else {
-        dispatch({ type: DELETE_FAILURE, payload: err.response });
-      }
-    });
-};
+
 
 export const registerUser = creds => dispatch => {
   dispatch({ type: REGISTER_USER });
