@@ -10,11 +10,16 @@ import SignUpForm from './components/SignUpForm';
 class App extends React.Component {
   render() {
     return (
-      <div className="App">        
-        <Route path="/" component={LoginForm} />
-        <Route path="/signup" component={SignUpForm} />
+      <div className="App">
+        <div>
+        <Route exact path="/" component={LoginForm} />
+        </div>
+        <div>
+        
+        
+        </div>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-       
+        <Route path="/signup" component={SignUpForm} />
       </div>
     );
   }
