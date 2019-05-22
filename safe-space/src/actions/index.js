@@ -11,11 +11,14 @@ export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
 
 
 export const login = creds => dispatch => {
-  dispatch({ type: LOGIN_START });
-  return axios.post('http://safespaceapp.herokuapp.com/oauth/token', creds).then(res => {
+    dispatch({ type: LOGIN_START });
+   
+    return axios.post('https://safespaceapp.herokuapp.com/oauth/token', creds).then(res => {
+        console.log(`random`, res.data);
     localStorage.setItem('token', res.data.payload);
     dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
   });
+    
 };
 
 export const FETCH_DATA_START = 'FETCH_DATA_START';
@@ -26,7 +29,7 @@ export const USER_UNAUTHORIZED = 'FETCH_DATA_FAILURE';
 export const getData = () => dispatch => {
   dispatch({ type: FETCH_DATA_START });
   axios
-    .get('http://localhost:5000/api/friends', {
+    .get('https://safespaceapp.herokuapp.com/notes/mynotes', {
       headers: { Authorization: localStorage.getItem('token') }
     })
     .then(res => {
@@ -49,7 +52,7 @@ export const DELETE_FAILURE = 'DELETE_FAILURE';
 export const deleteMessage = id => dispatch => {
   dispatch({ type: DELETE_START });
   axios
-    .delete(`http://localhost:5000/api/friends/${id}`, {
+    .delete(`https://safespaceapp.herokuapp.com/notes/mynotes/${id}`, {
       headers: { Authorization: localStorage.getItem('token') }
     })
     .then(res => {

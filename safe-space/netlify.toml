@@ -1,0 +1,4 @@
+[build]
+base = "safe-space/"
+publish = "safe-space/build/"
+command = "yarn build"
