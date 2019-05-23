@@ -4,6 +4,7 @@ import { getData } from '../actions/index';
 import Note from '../components/Note';
 
 class NotesList extends React.Component {
+    
     componentDidMount = () => {
         this.props.getData(this.props.token);
     };
@@ -18,9 +19,10 @@ class NotesList extends React.Component {
 }
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
-        notes: state.rootReducer.notes,
-        token: state.rootReducer.token
+        notes: state.notes,
+        token: state.token
     }
 }
 

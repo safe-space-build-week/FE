@@ -72,10 +72,11 @@ export const getData = () => dispatch => {
     })
     .catch(err => {
       console.log("call failed: ", err.response);
-      if (err.response.status === 403) {
+      if (err.response && err.response.status === 403) {
         dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
       } else {
-        dispatch({ type: FETCH_DATA_FAILURE, payload: err.response });
+        console.log(err)
+        dispatch({ type: FETCH_DATA_FAILURE, payload: err });
       }
     });
 };
