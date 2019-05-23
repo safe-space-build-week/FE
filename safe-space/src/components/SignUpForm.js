@@ -9,9 +9,11 @@ class SignUpForm extends React.Component {
   state = {
     name: "",
     username: "",
-    email: "",
+      email: "",
+    phone: "",
     password: ""
-  };
+    };
+    
   handleSubmit = e => {
     e.preventDefault();
     this.props
@@ -27,7 +29,7 @@ class SignUpForm extends React.Component {
   };
 
   render() {
-    const { name, email, username, password } = this.state;
+    const { name, email, username, password, phone } = this.state;
     return (
       <div className="sign-up">
         <Form onSubmit={this.handleSubmit} className="sign-up-form">
@@ -46,6 +48,10 @@ class SignUpForm extends React.Component {
           <FormGroup>
             <Label>Email</Label>
             <Input name="email" value={email} onChange={this.handleChange} />
+                </FormGroup>
+                <FormGroup>
+            <Label>Phone</Label>
+            <Input name="phone" type="number" value={phone} onChange={this.handleChange} />
           </FormGroup>
           <FormGroup>
             <Label>Password</Label>
@@ -78,7 +84,7 @@ class SignUpForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isRegistering: state.isRegistering,
+    
     name: state.name,
     username: state.username,
     email: state.email,

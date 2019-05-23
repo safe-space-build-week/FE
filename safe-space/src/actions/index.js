@@ -45,22 +45,31 @@ export const DELETE_SUCCESS = "DELETE_SUCCESS";
 export const DELETE_FAILURE = "DELETE_FAILURE";
 
 
-export const deleteMessage = id => dispatch => {
+export const deleteNote = id => dispatch => {
   dispatch({ type: DELETE_START });
-  axiosAuth()
-    .delete(`https://safespaceapp.herokuapp.com/notes/mynotes/${id}`)
+  return axiosAuth()
+    .delete(`https://safespaceapp.herokuapp.com/notes/delete/${id}`)
     .then(res => {
       dispatch({ type: DELETE_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      console.log("call failed: ", err.response);
-      if (err.response.status === 403) {
-        dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
+      console.log("call failed: ", err);
+      if (err.status === 403) {
+        dispatch({ type: USER_UNAUTHORIZED, payload: err });
       } else {
-        dispatch({ type: DELETE_FAILURE, payload: err.response });
+        dispatch({ type: DELETE_FAILURE, payload: err });
       }
     });
 };
+
+// export const editNote = id => dispatch => {
+//   dispatch({ type: EDIT_START });
+//   return axiosAuth()
+//     .post(`https://safespaceapp.herokuapp.com/notes/edit/${id}`)
+//     .then(res => {
+//     dispatch
+//   })
+// }
 
 
 export const getData = () => dispatch => {
@@ -72,18 +81,20 @@ export const getData = () => dispatch => {
     })
     .catch(err => {
       console.log("call failed: ", err.response);
-      if (err.response.status === 403) {
+      if (err.response && err.response.status === 403) {
         dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
       } else {
-        dispatch({ type: FETCH_DATA_FAILURE, payload: err.response });
+        console.log(err)
+        dispatch({ type: FETCH_DATA_FAILURE, payload: err });
       }
     });
 };
 
-export const handleAddNote = (token, note) => dispatch => {
+export const handleAddNote = (note) => dispatch => {
   dispatch({ type: ADD_START });
-  console.log(token);
-  axiosAuth()
+  
+  // console.log(token);
+  return axiosAuth()
     .post("https://safespaceapp.herokuapp.com/notes/newnote", note)
     .then(res => dispatch({ type: ADD_SUCCESS, payload: res.data }))
     .catch(err => dispatch({ type: ADD_FAILURE, payload: err }));

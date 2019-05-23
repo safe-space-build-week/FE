@@ -21,7 +21,6 @@ const initialState = {
   fetchingNotes: false,
   isRegistering: false,
   addingNote: false,
-  deletingNote: false,
   token: localStorage.getItem("token")
 };
 
@@ -62,7 +61,7 @@ const rootReducer = (state = initialState, action) => {
         deletingNote: false,
         error: "",
         errorStatusCode: null,
-        notes: action.payload
+        notes:[action.payload]
       };
     case USER_UNAUTHORIZED:
       console.log(action);

@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 const axiosAuth = () => {
-    return axios.create({
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: localStorage.getItem('token')
+  console.log(localStorage.getItem('token'))
+  return axios.create({
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `bearer ${ localStorage.getItem('token') }`
       }
     })
   };
