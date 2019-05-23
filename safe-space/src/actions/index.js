@@ -62,14 +62,14 @@ export const deleteNote = id => dispatch => {
     });
 };
 
-export const editNote = id => dispatch => {
-  dispatch({ type: EDIT_START });
-  return axiosAuth()
-    .post(`https://safespaceapp.herokuapp.com/notes/edit/${id}`)
-    .then(res => {
-    dispatch
-  })
-}
+// export const editNote = id => dispatch => {
+//   dispatch({ type: EDIT_START });
+//   return axiosAuth()
+//     .post(`https://safespaceapp.herokuapp.com/notes/edit/${id}`)
+//     .then(res => {
+//     dispatch
+//   })
+// }
 
 
 export const getData = () => dispatch => {
