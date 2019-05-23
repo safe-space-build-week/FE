@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { handleAddNote } from "../actions";
 import { connect } from "react-redux";
+import { history } from "../helpers/history"
+
 
 class NotesForm extends React.Component {
     state = {
@@ -13,8 +15,9 @@ class NotesForm extends React.Component {
         console.log('notes', this.props)
         e.preventDefault();
         this.props
-          .handleAddNote(this.state)
-          .then(() => this.props.history.push("/dashboard"));
+            .handleAddNote(this.state)
+            .then(() => window.location.reload())
+            .catch(err => console.log(err))
     };
     
       handleChange = e => {
@@ -31,7 +34,7 @@ class NotesForm extends React.Component {
                     <FormGroup>
                         <Label for="myNotesText">What are you proud of today?</Label>
                         <Input name="text" value={text} onChange={this.handleChange} />
-                        <Button color="success">Update</Button>
+                        <Button color="success">Send</Button>
                         
                 </FormGroup>
 

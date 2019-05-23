@@ -4,7 +4,7 @@ const axiosAuth = () => {
   console.log(localStorage.getItem('token'))
   return axios.create({
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
       Authorization: `bearer ${ localStorage.getItem('token') }`
       }
     })
