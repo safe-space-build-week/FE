@@ -6,18 +6,16 @@ import EditNote from "./EditNote";
 import styled from "styled-components";
 
 const StyledNotes = styled.div`
-
-border: 2px solid #28a745;
-border-radius: 10px;
-
-`
+  border: 2px solid #28a745;
+  border-radius: 10px;
+`;
 
 const StyledNotesH2 = styled.h2`
-font-family: "Pacifico", cursive;
-`
+  font-family: "Pacifico", cursive;
+`;
 const StyledButton = styled(Button)`
-margin: 10px;
-`
+  margin: 10px;
+`;
 
 class NotesList extends React.Component {
   state = {
@@ -75,7 +73,6 @@ class NotesList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log("noteslist", state);
   return {
     notes: state.notes,
     token: state.token,

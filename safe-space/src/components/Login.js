@@ -15,7 +15,6 @@ const StyledLoginWrapper = styled(Form)`
 const StyledLoginHeader = styled.header`
   background-color: #28a745;
   font-family: "Pacifico", cursive;
-
 `;
 
 class LoginForm extends React.Component {
@@ -45,7 +44,9 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div>
-        <StyledLoginHeader><h1>Safe Space</h1></StyledLoginHeader>
+        <StyledLoginHeader>
+          <h1>Safe Space</h1>
+        </StyledLoginHeader>
         <StyledLoginWrapper onSubmit={this.login}>
           <FormGroup>
             <Label for="user">Username:</Label>

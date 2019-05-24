@@ -73,23 +73,21 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         addingNote: false,
-        error: '',
+        error: "",
         errorStatusCode: null,
-        notes:  [...state.notes, action.payload]
+        notes: [...state.notes, action.payload]
       };
     case EDIT_START:
       return {
         ...state,
-        editingNote: true,
-
+        editingNote: true
       };
     case EDIT_SUCCESS:
       return {
         ...state,
         editingNote: false,
-        error: '',
-        errorStatusCode: null,
-        
+        error: "",
+        errorStatusCode: null
       };
     case DELETE_START:
       return {
@@ -101,11 +99,9 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         deletingNote: false,
         error: "",
-        errorStatusCode: null,
-        
+        errorStatusCode: null
       };
     case USER_UNAUTHORIZED:
-      console.log(action);
       return {
         ...state,
         error: action.payload.data.error,

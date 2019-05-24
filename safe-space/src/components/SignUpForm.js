@@ -15,7 +15,6 @@ const StyledSignUpWrapper = styled.div`
 const StyledSignUpHeader = styled.header`
   background-color: #28a745;
   font-family: "Pacifico", cursive;
-  
 `;
 
 class SignUpForm extends React.Component {
@@ -41,7 +40,9 @@ class SignUpForm extends React.Component {
     const { name, email, username, password, phone } = this.state;
     return (
       <div>
-        <StyledSignUpHeader><h1>Safe Space</h1></StyledSignUpHeader>
+        <StyledSignUpHeader>
+          <h1>Safe Space</h1>
+        </StyledSignUpHeader>
         <StyledSignUpWrapper>
           <Form onSubmit={this.handleSubmit} className="sign-up-form">
             <FormGroup>

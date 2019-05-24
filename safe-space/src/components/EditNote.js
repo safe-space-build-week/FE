@@ -1,22 +1,22 @@
 import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledButton = styled(Button)`
-margin: 10px
-`
+  margin: 10px;
+`;
 
 class EditNote extends React.Component {
   state = {
     note: this.props.note
   };
 
-    handleChange = e => {
-        let target = e.target;
+  handleChange = e => {
+    let target = e.target;
     this.setState(prevState => ({
       note: {
         ...prevState.note,
-            text:target.value
+        text: target.value
       }
     }));
   };
@@ -27,7 +27,6 @@ class EditNote extends React.Component {
   };
 
   render() {
-    console.log("editstate", this.state);
     return (
       <div className="edit-form">
         <Form className="edit-form" onSubmit={this.changeNote}>
