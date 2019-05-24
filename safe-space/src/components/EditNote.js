@@ -1,5 +1,10 @@
 import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import styled from 'styled-components';
+
+const StyledButton = styled(Button)`
+margin: 10px
+`
 
 class EditNote extends React.Component {
   state = {
@@ -33,7 +38,7 @@ class EditNote extends React.Component {
             onChange={this.handleChange}
             value={this.state.text}
           />
-          <Button color="success">Update</Button>
+          <StyledButton color="success">Update</StyledButton>
         </Form>
       </div>
     );

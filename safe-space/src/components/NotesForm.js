@@ -2,8 +2,15 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { handleAddNote } from "../actions";
 import { connect } from "react-redux";
-import { history } from "../helpers/history"
+import styled from 'styled-components';
 
+
+const StyledFormLabel = styled(Label)`
+    font-size: 1.5rem;
+`
+const StyledButton = styled(Button)`
+    margin: 10px;
+`
 
 class NotesForm extends React.Component {
     state = {
@@ -32,9 +39,9 @@ class NotesForm extends React.Component {
             <div className="notes-form">
                 <Form onSubmit={this.noteSubmit}>
                     <FormGroup>
-                        <Label for="myNotesText">What are you proud of today?</Label>
+                        <StyledFormLabel for="myNotesText">What should SafeSpace remember for you today?</StyledFormLabel>
                         <Input name="text" value={text} onChange={this.handleChange} />
-                        <Button color="success">Send</Button>
+                        <StyledButton color="success">Send</StyledButton>
                         
                 </FormGroup>
 
