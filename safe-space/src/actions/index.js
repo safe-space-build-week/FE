@@ -1,9 +1,9 @@
 import axios from "axios";
 import axiosAuth from "../axiosAuth";
 
-import { history } from "../helpers/history";
-
-
+export const DELETE_START = "DELETE_START";
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
+export const DELETE_FAILURE = "DELETE_FAILURE";
 
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -21,17 +21,22 @@ export const ADD_START = "ADD_START";
 export const ADD_SUCCESS = "ADD_SUCCESS";
 export const ADD_FAILURE = "ADD_FAILURE";
 
+export const EDIT_START = "EDIT_START";
+export const EDIT_SUCCESS = "EDIT_SUCCESS";
+export const EDIT_FAILURE = "EDIT_FAILURE";
+
 export const login = creds => dispatch => {
-    dispatch({ type: LOGIN_START });
-    console.log(creds);
+  dispatch({ type: LOGIN_START });
+  console.log(creds);
   const body = `grant_type=password&username=${creds.username}&password=${
     creds.password
   }`;
   return axios
     .post("https://safespaceapp.herokuapp.com/oauth/token", body, {
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-           "Authorization": "Basic c2FmZXNwYWNlLWNsaWVudDpzYWZlc3BhY2Utc2VjcmV0"}
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Basic c2FmZXNwYWNlLWNsaWVudDpzYWZlc3BhY2Utc2VjcmV0"
+      }
     })
     .then(res => {
       console.log("random", res.data);
@@ -40,20 +45,26 @@ export const login = creds => dispatch => {
     });
 };
 
-export const DELETE_START = "DELETE_START";
-export const DELETE_SUCCESS = "DELETE_SUCCESS";
-export const DELETE_FAILURE = "DELETE_FAILURE";
-
-
 export const deleteNote = id => dispatch => {
   dispatch({ type: DELETE_START });
   return axiosAuth()
     .delete(`https://safespaceapp.herokuapp.com/notes/delete/${id}`)
     .then(res => {
       dispatch({ type: DELETE_SUCCESS, payload: res.data });
+      axiosAuth()
+        .get("https://safespaceapp.herokuapp.com/notes/mynotes")
+        .then(res => {
+          dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+          if (err.response && err.response.status === 403) {
+            dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
+          } else {
+            dispatch({ type: FETCH_DATA_FAILURE, payload: err });
+          }
+        });
     })
     .catch(err => {
-      console.log("call failed: ", err);
       if (err.status === 403) {
         dispatch({ type: USER_UNAUTHORIZED, payload: err });
       } else {
@@ -62,15 +73,33 @@ export const deleteNote = id => dispatch => {
     });
 };
 
-// export const editNote = id => dispatch => {
-//   dispatch({ type: EDIT_START });
-//   return axiosAuth()
-//     .post(`https://safespaceapp.herokuapp.com/notes/edit/${id}`)
-//     .then(res => {
-//     dispatch
-//   })
-// }
-
+export const editNote = note => dispatch => {
+  dispatch({ type: EDIT_START });
+  return axiosAuth()
+    .put(`https://safespaceapp.herokuapp.com/notes/edit/${note.noteid}`, note)
+    .then(res => {
+      dispatch({ type: EDIT_SUCCESS });
+      axiosAuth()
+        .get("https://safespaceapp.herokuapp.com/notes/mynotes")
+        .then(res => {
+          dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data });
+        })
+        .catch(err => {
+          if (err.response && err.response.status === 403) {
+            dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
+          } else {
+            dispatch({ type: FETCH_DATA_FAILURE, payload: err });
+          }
+        });
+    })
+    .catch(err => {
+      if (err.status === 403) {
+        dispatch({ type: USER_UNAUTHORIZED, payload: err });
+      } else {
+        dispatch({ type: EDIT_FAILURE, payload: err });
+      }
+    });
+};
 
 export const getData = () => dispatch => {
   dispatch({ type: FETCH_DATA_START });
@@ -80,36 +109,31 @@ export const getData = () => dispatch => {
       dispatch({ type: FETCH_DATA_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      console.log("call failed: ", err.response);
       if (err.response && err.response.status === 403) {
         dispatch({ type: USER_UNAUTHORIZED, payload: err.response });
       } else {
-        console.log(err)
         dispatch({ type: FETCH_DATA_FAILURE, payload: err });
       }
     });
 };
 
-export const handleAddNote = (note) => dispatch => {
+export const handleAddNote = note => dispatch => {
   dispatch({ type: ADD_START });
-  
-  // console.log(token);
+
   return axiosAuth()
     .post("https://safespaceapp.herokuapp.com/notes/newnote", note)
-    .then(res => dispatch({ type: ADD_SUCCESS, payload: res.data }))
+
+    .then(res => {
+      dispatch({ type: ADD_SUCCESS, payload: res.data });
+    })
     .catch(err => dispatch({ type: ADD_FAILURE, payload: err }));
 };
-
-
-
-
 
 export const registerUser = creds => dispatch => {
   dispatch({ type: REGISTER_USER });
   return axios
     .post("https://safespaceapp.herokuapp.com/user/register", creds)
     .then(res => {
-      console.log("action-creator: ", res.data);
       localStorage.setItem("token", res.data.token);
       dispatch({ type: REGISTER_USER_SUCCESS, payload: res.data });
     })
