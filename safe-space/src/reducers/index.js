@@ -8,7 +8,13 @@ import {
   DELETE_START,
   DELETE_SUCCESS,
   REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAILURE
+  REGISTER_USER_FAILURE,
+  ADD_START,
+  ADD_SUCCESS,
+  ADD_FAILURE,
+  EDIT_START,
+  EDIT_SUCCESS,
+  EDIT_FAILURE
 } from "../actions";
 
 const initialState = {
@@ -17,6 +23,7 @@ const initialState = {
   loggingIn: false,
   deletingNote: false,
   error: "",
+  editingNote: false,
   errorStatusCode: null,
   fetchingNotes: false,
   isRegistering: false,
@@ -50,6 +57,40 @@ const rootReducer = (state = initialState, action) => {
         fetchingNotes: false,
         notes: action.payload
       };
+    case ADD_START:
+      return {
+        ...state,
+        addingNote: true
+      };
+    case ADD_FAILURE:
+      return {
+        ...state,
+        addingNote: false,
+        error: action.payload.data.error,
+        errorStatusCode: action.payload.status
+      };
+    case ADD_SUCCESS:
+      return {
+        ...state,
+        addingNote: false,
+        error: '',
+        errorStatusCode: null,
+        notes:  [...state.notes, action.payload]
+      };
+    case EDIT_START:
+      return {
+        ...state,
+        editingNote: true,
+
+      };
+    case EDIT_SUCCESS:
+      return {
+        ...state,
+        editingNote: false,
+        error: '',
+        errorStatusCode: null,
+        
+      };
     case DELETE_START:
       return {
         ...state,
@@ -61,7 +102,7 @@ const rootReducer = (state = initialState, action) => {
         deletingNote: false,
         error: "",
         errorStatusCode: null,
-        notes:[action.payload]
+        
       };
     case USER_UNAUTHORIZED:
       console.log(action);
@@ -75,12 +116,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user_id: action.payload.id
-      }
+      };
     case REGISTER_USER_FAILURE:
       return {
         ...state,
         error: action.payload
-      }
+      };
     default:
       return state;
   }
